@@ -1,6 +1,5 @@
 'use client'
 
-
 import Image from 'next/image'
 
 import acsesories from '@/app/src/category/acsesories.png'
@@ -45,7 +44,7 @@ const Categories = () => {
                                 height={100}
                                 className="rounded-lg object-contain w-full h-28 mb-2"
                             />
-                            <h4 className="text-sm font-semibold text-gray-700">{item.title}</h4>
+                            <h4 className="text-sm font-semibold py-2 text-gray-700">{item.title}</h4>
                         </div>
                     ))}
                 </div>

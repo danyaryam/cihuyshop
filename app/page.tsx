@@ -3,7 +3,7 @@
 import React from 'react'
 import { useRouter } from 'next/navigation'
 
-import Categories from "./Category/Categories";
+import Categories from "./Product/Category/Categories";
 import SliderBanner from "./components/SliderBanner";
 import Image from 'next/image';
 
@@ -12,6 +12,7 @@ import coin from './src/images/coin.png'
 import policy from './src/images/policy.png'
 import Sale from './components/sale/Sale';
 import DiscountBanner from './components/sale/DiscountBanner';
+import PopularPage from './Product/Category/Popular/page';
 
 export default function Home() {
   const router = useRouter()
@@ -55,10 +56,22 @@ export default function Home() {
         <Sale />
       </div>
 
-      {/* banner discount */}
-      <DiscountBanner />
+      <DiscountBanner targetDate={new Date('2024-12-31T23:59:59')} />
 
-      {/* popular product */}
+      <div className="w-full my-8 px-8 mx-auto">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold text-gray-800">Popular Product</h1>
+          <button onClick={handleAllCategoriesClick} className="text-green-600 hover:text-green-800 flex items-center justify-start">
+            <span className="text-lg">See All</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </div>
+        <PopularPage />
+      </div>
+
+      {/* product */}
 
       <div className="flex flex-col md:flex-row justify-center items-center gap-8 px-8 py-6 bg-gray-300 text-center">
         <div className="flex flex-col items-center max-w-xs">
