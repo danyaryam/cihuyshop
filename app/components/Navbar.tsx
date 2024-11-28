@@ -7,14 +7,33 @@ const Navbar = () => {
     const [isNavbarVisible, setIsNavbarVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const [isSidebarOpenCart, setIsSidebarOpenCart] = useState(false);
+    const [isSidebarOpenNotif, setIsSidebarOpenNotif] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+
 
     const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
+        setIsSidebarOpen((prev) => !prev);
+        setIsSidebarOpenCart(false);
+        setIsSidebarOpenNotif(false);
     };
 
-    const toggleSidebarCart = () => {
-        setIsSidebarOpenCart(!isSidebarOpenCart);
+    const handleToggleSidebarNotif = () => {
+        setIsSidebarOpenNotif((prev) => !prev);
+        setIsSidebarOpenCart(false);
+        setIsSidebarOpen(false);
     };
+
+    const handleToggleSidebarCart = () => {
+        setIsSidebarOpenCart((prev) => !prev);
+        setIsSidebarOpenNotif(false);
+        setIsSidebarOpen(false);
+    };
+
+    // const handleOutsideClick = () => {
+    //     setIsSidebarOpen(false);
+    //     setIsSidebarOpenCart(false);
+    //     setIsSidebarOpenNotif(false);
+    // };
 
     const handleScroll = () => {
         if (typeof window !== 'undefined') {
@@ -24,12 +43,27 @@ const Navbar = () => {
         }
     };
 
+    const handleSearch = () => {
+        if (searchQuery.trim() === '') {
+            alert('Please enter a search term.');
+            return;
+        }
+        console.log(`Searching for: ${searchQuery}`);
+        window.location.href = `/search?query=${encodeURIComponent(searchQuery)}`;
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
+    };
+
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    },); //[handleScroll]
+    },);
 
     return (
         <nav className={`flex justify-between items-center px-8 py-4 bg-gray-50 bg-opacity-80 border-b border-green-400 fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${isNavbarVisible ? 'translate-y-0' : '-translate-y-full'}`}>
@@ -68,10 +102,50 @@ const Navbar = () => {
                     Alamat
                 </a>
             </div>
-            {/* ini button lain */}
+
+            {/* search */}
+            <div className="flex items-center border border-green-500 rounded-lg p-2 shadow-md w-full max-w-sm">
+                <button
+                    onClick={handleSearch}
+                    className="text-gray-500 hover:text-black transition"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M11 4a7 7 0 100 14 7 7 0 000-14zm10 10l-4-4"
+                        />
+                    </svg>
+                </button>
+                <input
+                    type="text"
+                    className="flex-grow outline-none px-2"
+                    placeholder="Search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                />
+                <button
+                    onClick={handleSearch}
+                    className="ml-2 bg-blue-500 text-white px-4 py-1 rounded-lg hover:bg-blue-600 transition"
+                >
+                    Search
+                </button>
+            </div>
+
             {/* lonceng */}
             <div className="">
-                <button className='text-black px-2'>
+                <button
+                    className='text-black px-2'
+                    onClick={handleToggleSidebarNotif}
+                >
                     <svg className='h-8 w-8'
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -84,10 +158,11 @@ const Navbar = () => {
                         <path d="M13.5 20a1.5 1.5 0 0 1-3 0" />
                     </svg>
                 </button>
+
                 {/* cart */}
                 <button
                     className="text-black px-2"
-                    onClick={toggleSidebarCart}
+                    onClick={handleToggleSidebarCart}
                 >
                     <svg
                         className="h-8 w-8"
@@ -124,9 +199,20 @@ const Navbar = () => {
                 </button>
             </div>
 
+            {/* sidebar notif */}
+            <div
+                className={`sidebar fixed top-[83px] right-0 h-screen w-96 bg-white shadow-lg border-l transition-transform duration-300 ${isSidebarOpenNotif ? 'translate-x-0' : 'translate-x-full'
+                    }`}
+            >
+                <div className="p-4">
+                    <h1 className="text-lg font-bold text-center">Notif is Empty</h1>
+                    <hr className="border-dashed mt-2 font-bold" />
+                </div>
+            </div>
+
             {/* sidebar cart item */}
             <div
-                className={`fixed top-[70px] right-0 h-screen w-96 bg-white shadow-lg border-l transition-transform duration-300 ${isSidebarOpenCart ? 'translate-x-0' : 'translate-x-full'
+                className={`sidebar fixed top-[83px] right-0 h-screen w-96 bg-white shadow-lg border-l transition-transform duration-300 ${isSidebarOpenCart ? 'translate-x-0' : 'translate-x-full'
                     }`}
             >
                 <div className="p-4">
@@ -135,6 +221,7 @@ const Navbar = () => {
                 </div>
             </div>
 
+            {/* sidebar mobile icon / humberger menu */}
             <div className="flex space-x-4 md:hidden">
                 <button onClick={toggleSidebar} className="text-black transition-colors duration-300 hover:text-rose-500">
                     <svg className="h-6 w-6"
