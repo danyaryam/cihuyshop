@@ -1,15 +1,15 @@
 "use client"
 
-import React from 'react'
+import React from 'react';
 import { useRouter } from 'next/navigation'
 
 import Categories from "./Product/Category/Categories";
 import SliderBanner from "./components/SliderBanner";
 import Image from 'next/image';
 
-import box from './src/images/box.png'
-import coin from './src/images/coin.png'
-import policy from './src/images/policy.png'
+import box from './src/images/box.png';
+import coin from './src/images/coin.png';
+import policy from './src/images/policy.png';
 import Sale from './components/sale/Sale';
 import DiscountBanner from './components/sale/DiscountBanner';
 import PopularPage from './Product/Category/Popular/page';
@@ -56,7 +56,7 @@ export default function Home() {
         <Sale />
       </div>
 
-      <DiscountBanner targetDate={new Date('2024-12-31T23:59:59')} />
+      <DiscountBanner targetDate={new Date('2025-12-31T23:59:59')} />
 
       <div className="w-full my-8 px-8 mx-auto">
         <div className="flex justify-between items-center mb-6">

@@ -6,9 +6,14 @@ const Navbar = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isNavbarVisible, setIsNavbarVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
+    const [isSidebarOpenCart, setIsSidebarOpenCart] = useState(false);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const toggleSidebarCart = () => {
+        setIsSidebarOpenCart(!isSidebarOpenCart);
     };
 
     const handleScroll = () => {
@@ -64,6 +69,7 @@ const Navbar = () => {
                 </a>
             </div>
             {/* ini button lain */}
+            {/* lonceng */}
             <div className="">
                 <button className='text-black px-2'>
                     <svg className='h-8 w-8'
@@ -78,21 +84,29 @@ const Navbar = () => {
                         <path d="M13.5 20a1.5 1.5 0 0 1-3 0" />
                     </svg>
                 </button>
-                <button className='text-black px-2'>
-                    <svg className='h-8 w-8'
+                {/* cart */}
+                <button
+                    className="text-black px-2"
+                    onClick={toggleSidebarCart}
+                >
+                    <svg
+                        className="h-8 w-8"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        strokeWidth="1.5">
+                        strokeWidth="1.5"
+                    >
                         <path d="M4 4h2l1.5 12h11L21 8H6" />
                         <circle cx="9" cy="19" r="1.5" />
                         <circle cx="17" cy="19" r="1.5" />
                         <path d="M2 2h3" />
                     </svg>
                 </button>
+
+                {/* acount */}
                 <button className='text-black px-2'>
                     <svg className='h-8 w-8'
                         xmlns="http://www.w3.org/2000/svg"
@@ -109,6 +123,18 @@ const Navbar = () => {
                     </svg>
                 </button>
             </div>
+
+            {/* sidebar cart item */}
+            <div
+                className={`fixed top-[70px] right-0 h-screen w-96 bg-white shadow-lg border-l transition-transform duration-300 ${isSidebarOpenCart ? 'translate-x-0' : 'translate-x-full'
+                    }`}
+            >
+                <div className="p-4">
+                    <h1 className="text-lg font-bold text-center">Cart is Empty</h1>
+                    <hr className="border-dashed mt-2 font-bold" />
+                </div>
+            </div>
+
             <div className="flex space-x-4 md:hidden">
                 <button onClick={toggleSidebar} className="text-black transition-colors duration-300 hover:text-rose-500">
                     <svg className="h-6 w-6"

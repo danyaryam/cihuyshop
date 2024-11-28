@@ -36,15 +36,15 @@ const Categories = () => {
             <div className="container mx-auto">
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
                     {category.map((item, index) => (
-                        <div key={index} className="flex flex-col items-center text-center shadow-md">
+                        <div key={index} className="flex flex-col items-center bg-green-300 text-center shadow-xl rounded-md p-2">
                             <Image
                                 src={item.imgSrc}
                                 alt={item.desc}
                                 width={100}
                                 height={100}
-                                className="rounded-lg object-contain w-full h-28 mb-2"
+                                className="object-contain w-full h-28 mb-2"
                             />
-                            <h4 className="text-sm font-semibold py-2 text-gray-700">{item.title}</h4>
+                            <h4 className="text-sm font-semibold py-2 text-gray-900">{item.title}</h4>
                         </div>
                     ))}
                 </div>
